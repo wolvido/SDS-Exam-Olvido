@@ -1,0 +1,53 @@
+﻿@using System.Collections
+@using SdsExamOlvido.Models
+@model IEnumerable<SdsExamOlvido.Models.RecyclableType>
+
+@{
+    ViewBag.Title = "RecyclableTypeList";
+}
+
+<h2>RecyclableTypeList</h2>
+
+<p>
+    <a href="@Url.Action("CreateRecyclableType", "RecyclableType")" class="btn btn-primary">Add Recyclable Type</a>
+</p>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Type)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Rate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MinKg)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MaxKg)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Type)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Rate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MinKg)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MaxKg)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "RecyclableTypeList", new { id=item.Id })
+            @Html.ActionLink("Delete", "RecyclableTypeList", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>
