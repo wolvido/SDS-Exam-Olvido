@@ -1,7 +1,9 @@
 ﻿using SdsExamOlvido.Models;
+using SdsExamOlvido.ServiceContracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -9,9 +11,17 @@ namespace SdsExamOlvido.Controllers
 {
     public class RecyclableTypeController : Controller
     {
+        private readonly IRecyclableTypeService _recyclableTypeService;
+
+        public RecyclableTypeController(IRecyclableTypeService recyclableTypeService)
+        {
+            _recyclableTypeService = recyclableTypeService;
+        }
+
+
         [Route("[action]")]
         [HttpGet]
-        public ActionResult RecyclableTypeList()
+        public async Task<ActionResult> RecyclableTypeList()
         {
                 //sample data of the model in a list
                 var recyclableTypeList = new List<RecyclableType>
@@ -39,11 +49,24 @@ namespace SdsExamOlvido.Controllers
 
         [Route("[action]")]
         [HttpPost]
-        public ActionResult CreateRecyclableType(RecyclableType recyclableType)
+        public async Task<ActionResult> CreateRecyclableType(RecyclableType recyclableType)
         {
+
             if (ModelState.IsValid)
             {
                 // Process the data
+
+                //sample recyclable type
+                RecyclableType sampleRecyclableType = new RecyclableType
+                {
+                    Type = "Plastic",
+                    Rate = 2.33M,
+                    MinKg = 1,
+                    MaxKg = 10
+                };
+
+                await _recyclableTypeService.CreateRecyclableType(sampleRecyclableType);
+
 
                 //tests, delete later
                 TempData["Test"] = recyclableType;

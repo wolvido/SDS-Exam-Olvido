@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using SdsExamOlvido.Models;
@@ -11,7 +12,7 @@ namespace SdsExamOlvido.Controllers
     {
         [Route("[action]")]
         [HttpGet]
-        public ActionResult RecyclableItemList()
+        public async Task<ActionResult> RecyclableItemList()
         {
             //sample data
             var recyclableItemList = new List<RecyclableItem>
@@ -37,7 +38,7 @@ namespace SdsExamOlvido.Controllers
 
         [Route("[action]")]
         [HttpPost]
-        public ActionResult CreateRecyclableItem(RecyclableItem recyclableItem)
+        public async Task<ActionResult> CreateRecyclableItem(RecyclableItem recyclableItem)
         {
             if (ModelState.IsValid)
             {
