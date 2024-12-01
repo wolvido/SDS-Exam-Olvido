@@ -23,8 +23,9 @@
             @Html.Hidden("Id", Model.Id)
         }
 
-        <div class="type-dropdown form-group">
-            <select name="@Html.NameFor(x=>x.RecyclableTypeId)">
+        <div class="type-dropdown form-group d-flex flex-column">
+            <label class="control-label col-md-2">Recyclable Type</label>
+            <select class="col-md-10" name="@Html.NameFor(x=>x.RecyclableTypeId)">
                 @foreach (var item in ViewBag.RecyclableTypes)
                 {
                     <option data-rate="@item.Rate" value="@item.Id">@item.Type</option>

@@ -169,6 +169,7 @@
     <Compile Include="ServiceContracts\IRecyclableTypeService.cs" />
     <Compile Include="Services\RecyclableItemService.cs" />
     <Compile Include="Services\RecyclableTypeService.cs" />
+    <Compile Include="ViewModels\RecyclableItemViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-grid.css" />

@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using SdsExamOlvido.Models;
 using SdsExamOlvido.ServiceContracts;
+using SdsExamOlvido.ViewModels;
 
 namespace SdsExamOlvido.Controllers
 {
@@ -25,8 +26,19 @@ namespace SdsExamOlvido.Controllers
         public async Task<ActionResult> RecyclableItemList()
         {
             var recyclableItems = await _recyclableItemService.GetAllRecyclableItems();
+            var recyclableTypes = await _recyclableTypeService.GetAllRecyclableTypes();
 
-            return View(recyclableItems);
+            var recyclableItemViewModels = recyclableItems.Select(
+                item => new RecyclableItemViewModel
+                {
+                    Id = item.Id,
+                    Type = recyclableTypes.FirstOrDefault(x => x.Id == item.RecyclableTypeId)?.Type,
+                    Weight = item.Weight,
+                    ComputedRate = item.ComputedRate,
+                    ItemDescription = item.ItemDescription
+                });
+
+            return View(recyclableItemViewModels);
         }
 
         [Route("[action]")]
