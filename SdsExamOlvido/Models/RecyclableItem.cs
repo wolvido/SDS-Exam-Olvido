@@ -25,10 +25,12 @@ namespace SdsExamOlvido.Models
 
         //[Column(TypeName = "decimal(18, 2)")]
         [RegularExpression(@"^\d+(\.\d{1,2})?$", ErrorMessage = "The value must not exceed 2 decimal places.")]
+        [Display(Name = "Computed Rate")]
         public decimal ComputedRate { get; set; }
 
         //[Column(TypeName = "varchar(150)")]
         [MaxLength(150, ErrorMessage="Item Description must be 150 characters or less")]
+        [Display(Name = "Description")]
         public string ItemDescription { get; set; }
 
     }

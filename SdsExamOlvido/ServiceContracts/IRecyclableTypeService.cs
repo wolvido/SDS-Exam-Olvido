@@ -17,5 +17,7 @@ namespace SdsExamOlvido.ServiceContracts
 
         Task<IEnumerable<RecyclableType>> GetAllRecyclableTypes();
 
+        Task<RecyclableType> GetRecyclableTypeById(int id);
+
     }
 }

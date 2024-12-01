@@ -29,6 +29,7 @@ namespace SdsExamOlvido
 
             // Register services here
             container.RegisterType<IRecyclableTypeService, RecyclableTypeService>(new HierarchicalLifetimeManager());
+            container.RegisterType<IRecyclableItemService, RecyclableItemService>(new HierarchicalLifetimeManager());
 
             //unity dependency resolver
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));

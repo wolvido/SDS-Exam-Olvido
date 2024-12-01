@@ -20,28 +20,11 @@ namespace SdsExamOlvido.Services
 
         public async Task<bool> CreateRecyclableType(RecyclableType recyclableType)
         {
-            if (recyclableType == null)
-            {
-                return false;
-            }
-
-            if (!IsValidRateOrWeight(recyclableType))
-            {
-                return false;
-            }
-
             _context.RecyclableTypes.Add(recyclableType);
 
             bool result = await _context.SaveChangesAsync() > 0;
 
             return result;
-        }
-
-        private bool IsValidRateOrWeight(RecyclableType recyclableType)
-        {
-            return Decimal.Round(recyclableType.Rate, 2) == recyclableType.Rate &&
-                   Decimal.Round(recyclableType.MinKg, 2) == recyclableType.MinKg &&
-                   Decimal.Round(recyclableType.MaxKg, 2) == recyclableType.MaxKg;
         }
 
         public async Task<bool> DeleteRecyclableType(int id)
@@ -80,5 +63,16 @@ namespace SdsExamOlvido.Services
             return await _context.RecyclableTypes.ToListAsync();
         }
 
+        public async Task<RecyclableType> GetRecyclableTypeById(int id)
+        {
+            RecyclableType recyclableType = await _context.RecyclableTypes.FindAsync(id);
+
+            if (recyclableType == null)
+            {
+                return null;
+            }
+
+            return recyclableType;
+        }
     }
 }

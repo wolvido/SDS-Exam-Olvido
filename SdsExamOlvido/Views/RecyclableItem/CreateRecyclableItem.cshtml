@@ -4,6 +4,10 @@
     ViewBag.Title = "CreateRecyclableItem";
 }
 
+@section scripts{
+    <script src="~/Scripts/CreateRecyclableItem.js"></script>
+}
+
 <h2>CreateRecyclableItem</h2>
 
 @using (Html.BeginForm()) 
@@ -13,19 +17,20 @@
     <div class="form-horizontal">
         <h4>RecyclableItem</h4>
         <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.RecyclableTypeId, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.RecyclableTypeId, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.RecyclableTypeId, "", new { @class = "text-danger" })
-            </div>
+
+        <div class="type-dropdown form-group">
+            <select name="@Html.NameFor(x=>x.RecyclableTypeId)">
+                @foreach (var item in ViewBag.RecyclableTypes)
+                {
+                    <option data-rate="@item.Rate" value="@item.Id">@item.Type</option>
+                }
+            </select>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.ItemDescription, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.ItemDescription, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.ItemDescription, new { htmlAttributes = new { @class = "form-control description-input" } })
                 @Html.ValidationMessageFor(model => model.ItemDescription, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -33,7 +38,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Weight, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Weight, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Weight, new { htmlAttributes = new { @class = "form-control weight-input" } })
                 @Html.ValidationMessageFor(model => model.Weight, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -41,7 +46,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.ComputedRate, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.ComputedRate, new { htmlAttributes = new { @class = "form-control" } })
+                <input readonly class="computed-input" name="@Html.NameFor(x=>x.ComputedRate)" value="0" />
                 @Html.ValidationMessageFor(model => model.ComputedRate, "", new { @class = "text-danger" })
             </div>
         </div>

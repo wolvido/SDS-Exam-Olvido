@@ -165,7 +165,9 @@
     <Compile Include="Models\RecyclableItem.cs" />
     <Compile Include="Models\RecyclableType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServiceContracts\IRecyclableItemService.cs" />
     <Compile Include="ServiceContracts\IRecyclableTypeService.cs" />
+    <Compile Include="Services\RecyclableItemService.cs" />
     <Compile Include="Services\RecyclableTypeService.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -195,6 +197,7 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-3.7.0.intellisense.js" />
+    <Content Include="Scripts\CreateRecyclableItem.js" />
     <Content Include="Scripts\jquery-3.7.0.js" />
     <Content Include="Scripts\jquery-3.7.0.min.js" />
     <Content Include="Scripts\jquery-3.7.0.slim.js" />

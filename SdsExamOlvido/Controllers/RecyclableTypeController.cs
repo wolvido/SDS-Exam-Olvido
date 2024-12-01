@@ -57,15 +57,15 @@ namespace SdsExamOlvido.Controllers
                 // Process the data
 
                 //sample recyclable type
-                RecyclableType sampleRecyclableType = new RecyclableType
-                {
-                    Type = "Plastic",
-                    Rate = 2.33M,
-                    MinKg = 1,
-                    MaxKg = 10
-                };
+                //RecyclableType sampleRecyclableType = new RecyclableType
+                //{
+                //    Type = "Plastic",
+                //    Rate = 2.33M,
+                //    MinKg = 1,
+                //    MaxKg = 10
+                //};
 
-                await _recyclableTypeService.CreateRecyclableType(sampleRecyclableType);
+                //await _recyclableTypeService.CreateRecyclableType(sampleRecyclableType);
 
 
                 //tests, delete later
