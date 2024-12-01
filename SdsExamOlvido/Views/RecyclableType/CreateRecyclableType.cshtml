@@ -4,7 +4,15 @@
     ViewBag.Title = "Create Recyclable Type";
 }
 
-<h2>CreateRecyclableType</h2>
+@if (Model?.Id != null)
+{
+    <h2>Edit Recyclable Type</h2>
+}
+else
+{
+    <h2>Create Recyclable Type</h2>
+}
+
 
 @using (Html.BeginForm()) 
 {
@@ -52,9 +60,12 @@
             </div>
         </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-primary" />
+        <div class="form-group d-flex justify-content-start mt-2 mb-2">
+            <div class="col-md-offset-2">
+                <input type="submit" value="Submit" class="btn btn-primary" />
+            </div>
+            <div class="col-md-offset-2 ms-5">
+                <input type="reset" value="Clear Form" class="btn btn-primary" />
             </div>
         </div>
     </div>

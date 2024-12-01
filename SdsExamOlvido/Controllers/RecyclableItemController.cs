@@ -32,7 +32,7 @@ namespace SdsExamOlvido.Controllers
                 item => new RecyclableItemViewModel
                 {
                     Id = item.Id,
-                    Type = recyclableTypes.FirstOrDefault(x => x.Id == item.RecyclableTypeId)?.Type,
+                    Type = recyclableTypes.FirstOrDefault(x => x.Id == item.RecyclableTypeId)?.Type ?? "No Type",
                     Weight = item.Weight,
                     ComputedRate = item.ComputedRate,
                     ItemDescription = item.ItemDescription

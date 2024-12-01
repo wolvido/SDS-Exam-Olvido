@@ -7,11 +7,21 @@
 @section scripts{
     <script src="~/Scripts/CreateRecyclableItem.js"></script>
 }
+@if (Model?.Id != null)
+{
+    <h2>Edit Recyclable Item</h2>
+}
+else
+{
+    <h2>Create Recyclable Item</h2>
+}
 
-<h2>CreateRecyclableItem</h2>
 
 @using (Html.BeginForm()) 
 {
+
+    
+
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
@@ -25,7 +35,7 @@
 
         <div class="type-dropdown form-group d-flex flex-column">
             <label class="control-label col-md-2">Recyclable Type</label>
-            <select class="col-md-10" name="@Html.NameFor(x=>x.RecyclableTypeId)">
+            <select class="col-md-10 " name="@Html.NameFor(x=>x.RecyclableTypeId)">
                 @foreach (var item in ViewBag.RecyclableTypes)
                 {
                     <option data-rate="@item.Rate" value="@item.Id">@item.Type</option>
@@ -52,15 +62,18 @@
         <div class="form-group">
             @Html.LabelFor(model => model.ComputedRate, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <input readonly class="computed-input" name="@Html.NameFor(x=>x.ComputedRate)" value="0" />
+                <input readonly class="computed-input form-control" name="@Html.NameFor(x=>x.ComputedRate)" value="0" />
                 @Html.ValidationMessageFor(model => model.ComputedRate, "", new { @class = "text-danger" })
             </div>
         </div>
 
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-primary" />
+        <div class="form-group d-flex justify-content-start mt-2 mb-2" >
+            <div class="col-md-offset-2 ">
+                <input type="submit" value="Submit" class="btn btn-primary" />
+            </div>
+            <div class="col-md-offset-2 ms-5">
+                <input type="reset" value="Clear Form" class="btn btn-primary" />
             </div>
         </div>
 
