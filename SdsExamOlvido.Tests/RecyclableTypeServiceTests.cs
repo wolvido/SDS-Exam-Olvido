@@ -76,7 +76,6 @@ namespace SdsExamOlvido.Tests
                     entity.MinKg % 1 != Math.Round(entity.MinKg, 2) % 1 || 
                     entity.MaxKg % 1 != Math.Round(entity.MaxKg, 2) % 1) 
                     {
-                        //hasChanges = false; 
                         return;
                     }
                     dataList.Add(entity);
@@ -94,7 +93,6 @@ namespace SdsExamOlvido.Tests
 
             _mockContext = new Mock<ApplicationDbContext>();
             _mockContext.Setup(c => c.Set<RecyclableType>()).Returns(_mockDbSet.Object);
-            //_mockContext.Setup(x => x.SaveChangesAsync(It.IsAny<CancellationToken>())).ReturnsAsync(1);
             _mockContext.Setup(x => x.SaveChangesAsync()).ReturnsAsync(() =>
             {
                 if (hasChanges)

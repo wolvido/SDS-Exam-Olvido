@@ -42,8 +42,8 @@
             @Html.DisplayFor(modelItem => item.ItemDescription)
         </td>
         <td>
-            @Html.ActionLink("Edit", "RecyclableItemList", new { id=item.Id })
-            @Html.ActionLink("Delete", "RecyclableItemList", new { id=item.Id })
+            @Html.ActionLink("Edit", "CreateRecyclableItem", new { id=item.Id })
+            @Html.ActionLink("Delete", "DeleteRecyclableItem", new { id=item.Id })
         </td>
     </tr>
 }

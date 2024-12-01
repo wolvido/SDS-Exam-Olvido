@@ -72,7 +72,6 @@ namespace SdsExamOlvido.Tests
                     entity.Weight % 1 != Math.Round(entity.Weight, 2) % 1 ||
                     entity.ComputedRate % 1 != Math.Round(entity.ComputedRate, 2) % 1)
                     {
-                        //hasChanges = false; 
                         return;
                     }
                     dataList.Add(entity);

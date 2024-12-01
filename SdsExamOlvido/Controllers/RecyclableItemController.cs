@@ -12,46 +12,41 @@ namespace SdsExamOlvido.Controllers
     public class RecyclableItemController : Controller
     {
         private readonly IRecyclableTypeService _recyclableTypeService;
+        private readonly IRecyclableItemService _recyclableItemService;
 
-        public RecyclableItemController(IRecyclableTypeService recyclableTypeService)
+        public RecyclableItemController(IRecyclableTypeService recyclableTypeService, IRecyclableItemService recyclableItemService)
         {
             _recyclableTypeService = recyclableTypeService;
+            _recyclableItemService = recyclableItemService;
         }
 
         [Route("[action]")]
         [HttpGet]
         public async Task<ActionResult> RecyclableItemList()
         {
-            //sample data
-            var recyclableItemList = new List<RecyclableItem>
-                {
-                    new RecyclableItem { Id = 1, RecyclableTypeId = 82, Weight = 123, ComputedRate = 34, ItemDescription = "dangerous" },
-                    new RecyclableItem { Id = 2, RecyclableTypeId = 14, Weight = 6, ComputedRate = 7, ItemDescription = "hard matter" },
-                    new RecyclableItem { Id = 3, RecyclableTypeId = 51, Weight = 6, ComputedRate = 3, ItemDescription = "flammable" },
-                    new RecyclableItem { Id = 4, RecyclableTypeId = 5, Weight = 23, ComputedRate = 8, ItemDescription = "toxic" }
-                };
-            IEnumerable<RecyclableItem> itemsTest = recyclableItemList;
+            var recyclableItems = await _recyclableItemService.GetAllRecyclableItems();
 
-            return View(itemsTest);
+            return View(recyclableItems);
         }
 
         [Route("[action]")]
         [HttpGet]
-        public async Task<ActionResult> CreateRecyclableItem()
+        public async Task<ActionResult> CreateRecyclableItem(int? id)
         {
-            //ViewBag.RecyclableTypes = await _recyclableTypeService.GetAllRecyclableTypes();
-            var recyclableTypeList = new List<RecyclableType>
-                {
-                    new RecyclableType { Id = 1, Type = "Plastic", Rate = 2.33M, MinKg = 1, MaxKg = 10 },
-                    new RecyclableType { Id = 2, Type = "Paper", Rate = 3.25M, MinKg = 1, MaxKg = 10 },
-                    new RecyclableType { Id = 3, Type = "Glass", Rate = 1.56M, MinKg = 1, MaxKg = 10 },
-                    new RecyclableType { Id = 4, Type = "Metal", Rate = 1.45M, MinKg = 1, MaxKg = 10 }
-                };
+            //dropdown recyclable types options
+            var recyclableTypes = await _recyclableTypeService.GetAllRecyclableTypes();
+            ViewBag.RecyclableTypes = recyclableTypes;
 
-            ViewBag.RecyclableTypes = recyclableTypeList;
-            
-            //tests, delete later
-            ViewBag.Test = TempData["Test"];
+            if (id.HasValue && id.Value > 0)
+            {
+                RecyclableItem recyclableItem = await _recyclableItemService.GetRecyclableItemById(id.Value);
+                if (recyclableItem != null)
+                {
+                    //try again page
+                }
+                return View(recyclableItem);
+            }
+
             return View();
         }
 
@@ -59,25 +54,45 @@ namespace SdsExamOlvido.Controllers
         [HttpPost]
         public async Task<ActionResult> CreateRecyclableItem(RecyclableItem recyclableItem)
         {
-            var recyclableTypeList = new List<RecyclableType>
-            {
-                new RecyclableType { Id = 1, Type = "Plastic", Rate = 2.33M, MinKg = 1, MaxKg = 10 },
-                new RecyclableType { Id = 2, Type = "Paper", Rate = 3.25M, MinKg = 1, MaxKg = 10 },
-                new RecyclableType { Id = 3, Type = "Glass", Rate = 1.56M, MinKg = 1, MaxKg = 10 },
-                new RecyclableType { Id = 4, Type = "Metal", Rate = 1.45M, MinKg = 1, MaxKg = 10 }
-            };
+            var recyclableTypes = await _recyclableTypeService.GetAllRecyclableTypes();
+            ViewBag.RecyclableTypes = recyclableTypes;
 
-            ViewBag.RecyclableTypes = recyclableTypeList;
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                // Process the data
-
-                //tests, delete later
-                TempData["Test"] = recyclableItem;
-                return RedirectToAction("CreateRecyclableItem");
+                return View();
             }
 
-            return View();
+            if (recyclableItem.Id > 0)
+            {
+                bool updateResult = await _recyclableItemService.UpdateRecyclableItem(recyclableItem);
+                if (!updateResult)
+                {
+                    // redirect to try again page
+                }
+                return RedirectToAction("RecyclableItemList");
+            }
+
+            bool createResult = await _recyclableItemService.CreateRecyclableItem(recyclableItem);
+            if (!createResult) 
+            {
+                // redirect to try again page
+            }
+            //tests, delete later
+            TempData["Test"] = recyclableItem;
+            return RedirectToAction("RecyclableItemList");
+
+        }
+
+        [Route("[action]")]
+        [HttpGet]
+        public async Task<ActionResult> DeleteRecyclableItem(int id)
+        {
+            bool deleteResult = await _recyclableItemService.DeleteRecyclableItem(id);
+            if (!deleteResult)
+            {
+                // redirect to try again page
+            }
+            return RedirectToAction("RecyclableItemList");
         }
     }
 }

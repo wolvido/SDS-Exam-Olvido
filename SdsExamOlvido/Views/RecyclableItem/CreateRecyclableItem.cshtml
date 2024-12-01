@@ -1,7 +1,7 @@
 ﻿@model SdsExamOlvido.Models.RecyclableItem
 
 @{
-    ViewBag.Title = "CreateRecyclableItem";
+    ViewBag.Title = "Create Recyclable Item";
 }
 
 @section scripts{
@@ -15,8 +15,13 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>RecyclableItem</h4>
+        <h4>Recyclable Item</h4>
         <hr />
+
+        @if (Model?.Id != null)
+        {
+            @Html.Hidden("Id", Model.Id)
+        }
 
         <div class="type-dropdown form-group">
             <select name="@Html.NameFor(x=>x.RecyclableTypeId)">
@@ -64,17 +69,3 @@
 <div>
     @Html.ActionLink("Back to List", "RecyclableItemList", "RecyclableItem")
 </div>
-
-@{ 
-    if(ViewBag.Test != null)
-    {
-        //<div>@ViewBag.Test.Id</div>
-        <div>@ViewBag.Test.RecyclableTypeId</div>
-        <div>@ViewBag.Test.Weight</div>
-        <div>@ViewBag.Test.ComputedRate</div>
-        <div>@ViewBag.Test.ItemDescription</div>
-    }
-    else { 
-
-    }
-}
